@@ -1,0 +1,20 @@
+[Users]
+●UserID (プライマリーキー)
+UserName
+
+[PurchaseHistories]
+PurchaseID (プライマリーキー)
+UserID
+PurchaseDateTime
+ProductID
+Quantity
+
+[Products]
+ProductID (プライマリーキー)
+ProductName
+CategoryName
+Price
+StockQuantity
+
+[Categories]
+CategoryName (プライマリーキー)
