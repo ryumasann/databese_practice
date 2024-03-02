@@ -1422,3 +1422,78 @@ FROM
 GROUP BY emp_no, salary
 HAVING emp_no BETWEEN 10001 AND 10010
 AND salary > (SELECT AVG(salary) FROM salaries);
+
+
+SELECT DISTINCT
+    emp_no
+FROM
+    salaries
+WHEre salary > (SELECT AVG(salary) * 2 FROM salaries);
+
+SELECT
+    emp_no,
+    MAX(salary) AS max_salary
+FROM
+    salaries
+GROUP BY emp_no, salary
+HAVING emp_no BETWEEN 10001 AND 10010
+AND salary > (SELECT AVG(salary) FROM salaries);
+
++-----------------+
+| AVG(salary) * 2 |
++-----------------+
+|     127621.4897 |
++-----------------+
+
+
+SELECT
+    gender,
+    emp_no,
+    birth_date
+FROM
+    employees AS e1
+WHERE birth_date = (
+    SELECT MAX(birth_date)
+    FROM employees AS e2
+    WHERE e1.gender = e2.gender
+    GROUP BY gender
+    );
+
+SELECT
+    gender,
+    emp_no,
+    birth_date,
+    first_name,
+    last_name
+FROM
+    employees AS e1
+WHERE
+    BETWEEN 10001 AND 10010
+AND
+    birth_date = (
+    SELECT MIN(birth_date)
+    FROM employees AS e2
+    WHERE e1.gender = e2.gender
+    );
+
+
+SELECT
+  e.gender,
+  e.birth_date,
+  e.emp_no,
+  e.first_name,
+  e.last_name
+FROM
+  employees e
+WHERE
+  (e.gender, e.birth_date) IN (
+    SELECT
+      gender,
+      MIN(birth_date) as min_birth_date
+    FROM
+      employees
+    WHERE
+      emp_no BETWEEN 10100 AND 10200
+    GROUP BY
+      gender
+  );
