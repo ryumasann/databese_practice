@@ -1477,23 +1477,115 @@ AND
     );
 
 
+
+mysql> SELECT
+    ->   gender,
+    ->   emp_no,
+    ->   first_name,
+    ->   last_name,
+    ->   birth_date
+    -> FROM
+    ->   employees e1
+    -> WHERE
+    ->   (gender, birth_date) IN (
+    ->     SELECT
+    ->       gender,
+    ->       MIN(birth_date) AS earliest_birth_date
+    ->     FROM
+    ->       employees e2
+    ->     WHERE
+    ->       emp_no BETWEEN 10100 AND 10200
+    ->     AND
+    ->       e1.gender = e2.gender
+    ->     GROUP BY
+    ->       gender
+    ->   );
++--------+--------+-------------+----------------+------------+
+| gender | emp_no | first_name  | last_name      | birth_date |
++--------+--------+-------------+----------------+------------+
+| F      |  10127 | Subir       | Baja           | 1952-02-24 |
+| M      |  10131 | Magdalena   | Eldridge       | 1952-02-19 |
+| M      |  15763 | Barun       | Narahari       | 1952-02-19 |
+| F      |  15861 | Gio         | Anido          | 1952-02-24 |
+| M      |  21498 | Aemilian    | Quadeer        | 1952-02-19 |
+| M      |  22601 | Shigenori   | Staelin        | 1952-02-19 |
+| M      |  37442 | Subhada     | Lipner         | 1952-02-19 |
+| F      |  39244 | Sasan       | Marrevee       | 1952-02-24 |
+| M      |  40399 | Hirochika   | Sidhu          | 1952-02-19 |
+| M      |  44821 | Martien     | Covnot         | 1952-02-19 |
+| F      |  49617 | Mahmut      | Domenig        | 1952-02-24 |
+| M      |  50320 | Guenter     | Pietrzykowski  | 1952-02-19 |
+| M      |  53016 | Huan        | Rohrbach       | 1952-02-19 |
+| F      |  66290 | Pasqua      | Swick          | 1952-02-24 |
+| M      |  71072 | Percy       | Georgakopoulos | 1952-02-19 |
+| M      |  76767 | Weiru       | Chachaty       | 1952-02-19 |
+| M      |  84010 | Manibrata   | Argence        | 1952-02-19 |
+| F      |  87619 | Cheong      | Baaleh         | 1952-02-24 |
+| M      |  95294 | Dulce       | Bain           | 1952-02-19 |
+| M      |  99525 | Zissis      | Ghelli         | 1952-02-19 |
+| F      | 202084 | Aamer       | Birch          | 1952-02-24 |
+| F      | 205034 | Sanjay      | Chappelet      | 1952-02-24 |
+| F      | 206245 | Sreenivas   | Velardi        | 1952-02-24 |
+| F      | 224612 | Marsha      | Munck          | 1952-02-24 |
+| M      | 232559 | Ramya       | Vernadat       | 1952-02-19 |
+| F      | 234100 | Bezalel     | Melichar       | 1952-02-24 |
+| F      | 235691 | Ibibia      | Buescher       | 1952-02-24 |
+| M      | 239892 | Saeed       | Waschkowski    | 1952-02-19 |
+| M      | 242528 | Lansing     | Cannata        | 1952-02-19 |
+| M      | 243950 | Lidong      | Argence        | 1952-02-19 |
+| F      | 244155 | Huai        | Emmerich       | 1952-02-24 |
+| M      | 246817 | Taegyun     | Czaja          | 1952-02-19 |
+| M      | 248640 | Jessie      | Eiter          | 1952-02-19 |
+| M      | 252694 | Randy       | Pepe           | 1952-02-19 |
+| M      | 257291 | Marit       | Plumb          | 1952-02-19 |
+| M      | 258185 | Make        | Biran          | 1952-02-19 |
+| M      | 262340 | Zengping    | Deverell       | 1952-02-19 |
+| F      | 271039 | Cedric      | Colorni        | 1952-02-24 |
+| F      | 278922 | Susuma      | Riexinger      | 1952-02-24 |
+| M      | 288045 | Rafael      | Godskesen      | 1952-02-19 |
+| M      | 293259 | Breannda    | Petersohn      | 1952-02-19 |
+| M      | 294170 | Valeri      | Improta        | 1952-02-19 |
+| M      | 295169 | Bingning    | Ginesta        | 1952-02-19 |
+| F      | 400219 | Udaiprakash | Huxford        | 1952-02-24 |
+| M      | 400514 | Baruch      | Curless        | 1952-02-19 |
+| M      | 402425 | Jeanna      | Kemmerer       | 1952-02-19 |
+| M      | 402585 | Adamantios  | Swick          | 1952-02-19 |
+| M      | 406936 | Gianluca    | Rebaine        | 1952-02-19 |
+| M      | 410273 | Jianhao     | Soloway        | 1952-02-19 |
+| F      | 419331 | Wojceich    | Gyorkos        | 1952-02-24 |
+| M      | 421948 | Marl        | Chorvat        | 1952-02-19 |
+| M      | 423830 | Maya        | Menhoudj       | 1952-02-19 |
+| M      | 430519 | Vojin       | Lanteri        | 1952-02-19 |
+| F      | 443195 | Manton      | Bratten        | 1952-02-24 |
+| M      | 449693 | Teruyuki    | Angiulli       | 1952-02-19 |
+| M      | 454218 | Mokhtar     | Ducloy         | 1952-02-19 |
+| F      | 456180 | Kazuhira    | Lieberherr     | 1952-02-24 |
+| M      | 461915 | Alejandro   | Sambasivam     | 1952-02-19 |
+| F      | 461962 | Shugo       | Raoux          | 1952-02-24 |
+| M      | 463894 | Arfst       | Montemayor     | 1952-02-19 |
+| M      | 473340 | Yifei       | Danner         | 1952-02-19 |
+| F      | 475873 | Garnet      | Luce           | 1952-02-24 |
+| F      | 477133 | Chikara     | Gubsky         | 1952-02-24 |
+| M      | 484072 | Stabislas   | Lienhardt      | 1952-02-19 |
+| M      | 484655 | Heejo       | Templeman      | 1952-02-19 |
+| M      | 485899 | Stabislas   | Merle          | 1952-02-19 |
+| M      | 492084 | Reinhard    | Yetim          | 1952-02-19 |
+| M      | 493792 | Leni        | McFarlin       | 1952-02-19 |
++--------+--------+-------------+----------------+------------+
+68 rows in set (19.08 sec)
+
+
+
 SELECT
-  e.gender,
-  e.birth_date,
-  e.emp_no,
-  e.first_name,
-  e.last_name
+    emp_no,
+    to_date,
+    (
+    CASE
+        WHEN to_date = '9999-01-01' THEN 'unemployed'
+        ELSE 'employed'
+    END
+    ) AS status
 FROM
-  employees e
+    salaries
 WHERE
-  (e.gender, e.birth_date) IN (
-    SELECT
-      gender,
-      MIN(birth_date) as min_birth_date
-    FROM
-      employees
-    WHERE
-      emp_no BETWEEN 10100 AND 10200
-    GROUP BY
-      gender
-  );
+    emp_no BETWEEN 100100 AND 100200;
