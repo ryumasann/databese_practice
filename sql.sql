@@ -1589,3 +1589,33 @@ FROM
     salaries
 WHERE
     emp_no BETWEEN 100100 AND 100200;
+
+
+SELECT
+    generation,
+    MAX(max_salary) AS max_salary
+FROM
+    (
+    SELECT
+        employees.emp_no,
+        birth_date,
+        (
+        CASE
+            WHEN birth_date BETWEEN '1950-01-01' AND '1959-12-31'
+                THEN '50s'
+            WHEN birth_date BETWEEN '1960-01-01' AND '1969-12-31'
+                THEN '60s'
+        END
+        ) AS generation,
+        MAX(salary) AS max_salary
+    FROM
+        employees
+    JOIN
+        salaries ON employees.emp_no = salaries.emp_no
+    WHERE
+        employees.emp_no BETWEEN 100100 AND 100200
+    GROUP BY
+        generation, employees.emp_no
+    ) AS subquery
+GROUP BY
+    generation;
