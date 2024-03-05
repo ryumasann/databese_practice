@@ -29,7 +29,7 @@
      * stock_quantity
  }
 
- entity "categories (商品分類)" as categories {
+ entity series {
      * <<PK>> category_id
      --
      * category_name
