@@ -2,40 +2,56 @@
  hide circle
  skinparam linetype ortho
 
- entity categories {
-    ' * 表示修飾子は必須属性を表します。 空白を1文字後ろに入れることで、強調{**}と解釈されることを防ぐと良いでしょう:
+ entity tv_schedule {
      * <<PK>> id
      --
-     * name: string
+     * <<FK>> episode_id
+    '  * viewer
+     * start_time
+     * end_time
+     * id
  }
+'  entity tv_schedule {
+'      * <<PK>> id
+'      --
+'      * <<FK>> episode_id
+'      * viewer
+'      * start_time
+'      * end_time
+'      * id
+'  }
 
  entity channels {
-     * <<PK>> channel_num
+     * <<PK>> channel_id
      --
-     * <<FK>> user_id
-     * <<FK>> product_id
-     * purchase_date_time
-     * quantity
-     --
-     unique : [channel_num]
+     * channel_name
  }
 
- entity time_slots {
-     * <<PK>> product_id
+ entity episodes {
+    ' * 表示修飾子は必須属性を表します。 空白を1文字後ろに入れることで、強調{**}と解釈されることを防ぐと良いでしょう:
+     * <<PK>> episode_id
      --
-     * product_name
-     * <<FK>> category_id
-     * price
-     * stock_quantity
+     * <<FK>> title_id
+     * season_no
+     * episode_no
+     * episode_name
+     * episode_details
+     * video_duration
+     * viewer
+     * viewer
+     --
+     unique : [title_id]
  }
 
- entity series {
-     * <<PK>> category_id
+ entity programs {
+     * <<PK>> title_id
      --
-     * category_name
+     * <<FK>>genre_id
+     * title
  }
 
- categories ||--o{ channels
- channels ||..o{ time_slots
- categories ||--o{ time_slots
+
+ episodes ||--o{ genre
+ genre ||..o{ programs
+ episodes ||--o{ programs
  @enduml
