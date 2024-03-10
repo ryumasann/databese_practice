@@ -48,9 +48,7 @@ INNER JOIN episodes AS e
 ON ps.title_name = e.title_name
 AND ps.season_num = e.season_num
 AND ps.episode_num = e.episode_num
--- WHERE DATE(ps.start_time) = CURRENT_DATE
-WHERE CAST(ps.start_time AS DATE) = CURRENT_DATE
-ORDER BY ps.start_time;
+WHERE CAST(ps.start_time AS DATE) = CURRENT_DATE;
 
 +--------------+----------------------+---------------------+------------+-------------+------------------+--------------------------------------------------+
 | channel_name | broadcast_start_time | broadcast_end_time  | season_num | episode_num | episode_name     | episode_details                                  |
@@ -70,7 +68,10 @@ SELECT ps.start_time AS broadcast_start_time,
        e.episode_name,
        e.episode_details
 FROM program_slots ps
-JOIN episodes e ON ps.title_name = e.title_name AND ps.season_num = e.season_num AND ps.episode_num = e.episode_num
-WHERE ps.channel_name = 'ドラマ1'
-  AND ps.start_time BETWEEN CURDATE() AND CURDATE() + INTERVAL 7 DAY
-ORDER BY ps.start_time;
+INNER JOIN episodes e ON
+ps.title_name = e.title_name
+AND ps.season_num = e.season_num
+AND ps.episode_num = e.episode_num
+WHERE ps.channel_name LIKE 'ドラマ%'
+  AND ps.start_time BETWEEN CURRENT_DATE
+  AND CURRENT_DATE + INTERVAL 7 DAY;
