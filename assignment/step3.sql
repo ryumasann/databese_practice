@@ -19,8 +19,10 @@ SELECT p.title_name,
        e.episode_num,
        e.episode_name,
        e.viewer
-FROM episodes AS epi
-JOIN programs AS p ON e.title_name = p.title_name AND e.season_num = p.season_num
+FROM episodes AS e
+INNER JOIN programs AS p
+ON e.title_name = p.title_name
+AND e.season_num = p.season_num
 ORDER BY e.viewer DESC
 LIMIT 3;
 +---------------+------------+-------------+------------------+--------+
@@ -34,5 +36,41 @@ LIMIT 3;
 
 
 -- 本日の番組表を表示するために、本日、どのチャンネルの、何時から、何の番組が放送されるのかを知りたいです。本日放送される全ての番組に対して、チャンネル名、放送開始時刻(日付+時間)、放送終了時刻、シーズン数、エピソード数、エピソードタイトル、エピソード詳細を取得してください。なお、番組の開始時刻が本日のものを本日方法される番組とみなすものとします
+SELECT ps.channel_name,
+       ps.start_time AS broadcast_start_time,
+       ps.end_time AS broadcast_end_time,
+       ps.season_num,
+       ps.episode_num,
+       e.episode_name,
+       e.episode_details
+FROM program_slots AS ps
+INNER JOIN episodes AS e
+ON ps.title_name = e.title_name
+AND ps.season_num = e.season_num
+AND ps.episode_num = e.episode_num
+-- WHERE DATE(ps.start_time) = CURRENT_DATE
+WHERE CAST(ps.start_time AS DATE) = CURRENT_DATE
+ORDER BY ps.start_time;
+
++--------------+----------------------+---------------------+------------+-------------+------------------+--------------------------------------------------+
+| channel_name | broadcast_start_time | broadcast_end_time  | season_num | episode_num | episode_name     | episode_details                                  |
++--------------+----------------------+---------------------+------------+-------------+------------------+--------------------------------------------------+
+| Channel4     | 2024-03-10 20:00:00  | 2024-03-10 20:35:00 |          3 |           2 | エピソード2      | アクション2 エピソード2の詳細情報                |
++--------------+----------------------+---------------------+------------+-------------+------------------+--------------------------------------------------+
+1 row in set (0.00 sec)
+
 
 -- ドラマというチャンネルがあったとして、ドラマのチャンネルの番組表を表示するために、本日から一週間分、何日の何時から何の番組が放送されるのかを知りたいです。ドラマのチャンネルに対して、放送開始時刻、放送終了時刻、シーズン数、エピソード数、エピソードタイトル、エピソード詳細を本日から一週間分取得してください
+-- 投入したデータがドラマ1，ドラマ2としているため"ドラマ"で前方一致した対象を抽出いたしました。
+
+SELECT ps.start_time AS broadcast_start_time,
+       ps.end_time AS broadcast_end_time,
+       ps.season_num,
+       ps.episode_num,
+       e.episode_name,
+       e.episode_details
+FROM program_slots ps
+JOIN episodes e ON ps.title_name = e.title_name AND ps.season_num = e.season_num AND ps.episode_num = e.episode_num
+WHERE ps.channel_name = 'ドラマ1'
+  AND ps.start_time BETWEEN CURDATE() AND CURDATE() + INTERVAL 7 DAY
+ORDER BY ps.start_time;
