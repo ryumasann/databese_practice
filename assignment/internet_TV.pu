@@ -47,6 +47,6 @@ entity episodes {
 }
 
 program_slots }|--|| programs
-genre }|--|| programs
+genres }|--|| programs
 episodes ||--|| program_slots
 @endumls
