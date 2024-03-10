@@ -44,6 +44,7 @@ https://github.com/APPRENTICE-jp/apprentice/blob/4th/quest/technologies/database
 - 外部キー制約：title_name、season_numは参照先をprogramsテーブルに対して設定。
 
 ## ステップ2:
-[リンク](./step2.md)
+[手順](./step2.md)
 
 ## ステップ３:
+[SQL](./step3.sql)

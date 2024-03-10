@@ -29,7 +29,7 @@ entity programs {
     detail
 }
 
-entity genre {
+entity genres {
     genre_id
     genre_name
 }
