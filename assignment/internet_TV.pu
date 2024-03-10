@@ -5,10 +5,10 @@
 ' カラム名 : 型 : 説明 を書く
 ' 複合ユニークなど特別な記載は -- で更に区切って記述
 ' * 表示修飾子は必須属性を表します。 空白を1文字後ろに入れることで、強調{**}と解釈されることを防ぐと良いでしょう:
-hide empty members
 
 @startuml internet_tv
 hide circle
+hide empty members
 skinparam linetype ortho
 
 entity program_slots {
@@ -27,8 +27,6 @@ entity programs {
     --
     <<FK>> genre_id
     detail
-    --
-    unique [genre_id]
 }
 
 entity genre {
@@ -46,7 +44,6 @@ entity episodes {
     released_ad
     video_duration
     viewer
-    --
 }
 
 program_slots }|--|| programs

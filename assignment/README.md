@@ -4,53 +4,47 @@ https://github.com/APPRENTICE-jp/apprentice/blob/4th/quest/technologies/database
 
 ## ステップ1: テーブル設計
 
-### genre
+### program_slots
 | カラム名| データ型| NULL| キー| 初期値| AUTO INCREMENT|
 | ------ |------|----| ----| ----| ----|
-|genre_id| char(8) |NOT |PRIMARY | | |
-|genre| varchar(100)| | |NULL|
-
-### episodes
-| カラム名| データ型| NULL| キー| 初期値| AUTO INCREMENT|
-| ------ |------|----| ----| ----| ----|
-|episode_id| MEDIUMINT |NOT |PRIMARY | |YES|
-|episode_name| varchar(2000)| | |NULL|
-|episode_no| int | | |DEFAULT| |
-|episode_details| varchar(2000)| | |NULL| |
-|season_no| int | | |NULL| |
-<!-- |series| int | | |NULL| | -->
-|title_id| char(8) | | | NULL| |
-
-※一意制約：title_id,episode_no,seriesに対して、一意の制約
-※外部キー制約：title_id に対して、programs テーブルの title_idカラムから設定
+| channel_name | CHAR(20) | | PRIMARY | | |
+| start_time | DATETIME | | PRIMARY | | |
+| end_time | DATETIME | | PRIMARY | | |
+| title_name | CHAR(210) | | INDEX | | |
+| season_num | SMALLINT | | | | |
+| episode_num | INT | | | | |
+- 外部キー制約：title_name、season_num、episode_num カラムに対して設定
 
 ### programs
 | カラム名| データ型| NULL| キー| 初期値| AUTO INCREMENT|
 | ------ |------|----| ----| ----| ----|
-|title_id|char(8) |NOT|PRIMARY | | |
-|title|varchar(100)| | |NULL|
-|genre_id|char(8)| | |NULL|
+| title_name | CHAR(210) | | PRIMARY | | |
+| season_num | SMALLINT | | PRIMARY | |
+| genre_id | SMALLINT | | | | |
+| detail | varchar(2000) | | | | |
+- 外部キー制約：genre_id カラムに対して設定
 
-※外部キー制約：genre_id に対して、genre テーブルの genre_idカラムから設定
-
-
-### tv_schedule
+### genre
 | カラム名| データ型| NULL| キー| 初期値| AUTO INCREMENT|
 | ------ |------|----| ----| ----| ----|
-|start_time| datetime | | |NULL| |
-|end_time|datetime| | |NULL|
-|ch| int | | |NULL| |
-|episode_id|int| | |NULL| |
-|viewer| int | | |NULL| |
-|id|int |NOT |PRIMARY | |YES|
+| genre_id | SMALLINT | | PRIMARY | | |
+| genre_name | varchar(100) | | PRIMARY | |
 
-※外部キー制約：episode_id に対して、episodes テーブルの episode_idカラムから設定
-
+### episodes
+| カラム名| データ型| NULL| キー| 初期値| AUTO INCREMENT|
+| ------ |------|----| ----| ----| ----|
+| title_name | CHAR(210) | | PRIMARY | | |
+| season_num | SMALLINT | | PRIMARY | |
+| episode_num | SMALLINT | | | |
+| episode_name | CHAR(210) | | | |
+| episode_details | varchar(2000) | | | |
+| released_ad | DATETIME | | | |
+| video_duration | TIME | | | |
+| viewer | BIGINT | | | |
+- 外部キー制約：title_name、season_num カラムに対して設定
 
 ## ステップ2:
 データベースの作成方法は以下の資料に記載しております。
-https://docs.google.com/spreadsheets/d/1K2R0FrHGfNNYfnSIbVtJUYZtgjRVwLXRMcjXpK2euPk/edit?pli=1#gid=0
-
 
 ## ステップ３:
 各クエリを「Step3-1.sql」...に記載しております。
