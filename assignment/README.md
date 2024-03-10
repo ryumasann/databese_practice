@@ -12,8 +12,8 @@ https://github.com/APPRENTICE-jp/apprentice/blob/4th/quest/technologies/database
 | end_time | DATETIME | | PRIMARY | | |
 | title_name | CHAR(210) | | INDEX | | |
 | season_num | SMALLINT | | | | |
-| episode_num | INT | | | | |
-- 外部キー制約：title_name、season_num、episode_num カラムに対して設定
+| episode_num | SMALLINT | | | | |
+- 外部キー制約：title_name、season_num, episode_numは参照先をepisodesテーブルに対して設定。
 
 ### programs
 | カラム名| データ型| NULL| キー| 初期値| AUTO INCREMENT|
@@ -21,30 +21,29 @@ https://github.com/APPRENTICE-jp/apprentice/blob/4th/quest/technologies/database
 | title_name | CHAR(210) | | PRIMARY | | |
 | season_num | SMALLINT | | PRIMARY | |
 | genre_id | SMALLINT | | | | |
-| detail | varchar(2000) | | | | |
+| detail | VARCHAR(2000) | | YES | | |
 - 外部キー制約：genre_id カラムに対して設定
 
-### genre
+### genres
 | カラム名| データ型| NULL| キー| 初期値| AUTO INCREMENT|
 | ------ |------|----| ----| ----| ----|
 | genre_id | SMALLINT | | PRIMARY | | |
-| genre_name | varchar(100) | | PRIMARY | |
+| genre_name | VARCHAR(100) | | PRIMARY | |
 
 ### episodes
 | カラム名| データ型| NULL| キー| 初期値| AUTO INCREMENT|
 | ------ |------|----| ----| ----| ----|
 | title_name | CHAR(210) | | PRIMARY | | |
 | season_num | SMALLINT | | PRIMARY | |
-| episode_num | SMALLINT | | | |
+| episode_num | SMALLINT | | PRIMARY | |
 | episode_name | CHAR(210) | | | |
-| episode_details | varchar(2000) | | | |
+| episode_details | VARCHAR(2000) | YES | | |
 | released_ad | DATETIME | | | |
-| video_duration | TIME | | | |
-| viewer | BIGINT | | | |
-- 外部キー制約：title_name、season_num カラムに対して設定
+| video_duration | TIME | | 00:00:00 | |
+| viewer | BIGINT | | | 0 |
+- 外部キー制約：title_name、season_numは参照先をprogramsテーブルに対して設定。
 
 ## ステップ2:
-データベースの作成方法は以下の資料に記載しております。
+[リンク](./step2.md)
 
 ## ステップ３:
-各クエリを「Step3-1.sql」...に記載しております。
