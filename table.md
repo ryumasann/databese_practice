@@ -1,12 +1,12 @@
-テーブル：users
+### テーブル：users
 | カラム名 | データ型 | NULL | キー | 初期値 | AUTO INCREMENT |
 | ---- | ---- | ---- | ---- | ---- | ---- |
 | id | bigint(20) |  | PRIMARY |  | YES |
 | name | varchar(80) |  |  |  |
 
 <br>
-テーブル：purchases
 
+### テーブル：purchases
 | カラム名 | データ型 | NULL | キー | 初期値 | AUTO INCREMENT |
 | ---- | ---- | ---- | ---- | ---- | ---- |
 | id | bigint(20) |  | PRIMARY |  | YES |
@@ -19,8 +19,8 @@
 外部キー制約：product_id に対して、products テーブルの id カラムから設定
 
 <br>
-テーブル：products
 
+### テーブル：products
 | カラム名 | データ型 | NULL | キー | 初期値 | AUTO INCREMENT |
 | ---- | ---- | ---- | ---- | ---- | ---- |
 | id | bigint(20) |  | PRIMARY |  | YES |
@@ -32,8 +32,8 @@
 外部キー制約：category_id に対して、category テーブルの id カラムから設定
 
 <br>
-テーブル：categories
 
+### テーブル：categories
 | カラム名 | データ型 | NULL | キー | 初期値 | AUTO INCREMENT |
 | ---- | ---- | ---- | ---- | ---- | ---- |
 | id | bigint(20) |  | PRIMARY |  | YES |

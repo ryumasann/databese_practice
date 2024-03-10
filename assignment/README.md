@@ -4,6 +4,12 @@ https://github.com/APPRENTICE-jp/apprentice/blob/4th/quest/technologies/database
 
 ## ステップ1: テーブル設計
 
+### genre
+| カラム名| データ型| NULL| キー| 初期値| AUTO INCREMENT|
+| ------ |------|----| ----| ----| ----|
+|genre_id| char(8) |NOT |PRIMARY | | |
+|genre| varchar(100)| | |NULL|
+
 ### episodes
 | カラム名| データ型| NULL| キー| 初期値| AUTO INCREMENT|
 | ------ |------|----| ----| ----| ----|
@@ -18,20 +24,12 @@ https://github.com/APPRENTICE-jp/apprentice/blob/4th/quest/technologies/database
 ※一意制約：title_id,episode_no,seriesに対して、一意の制約
 ※外部キー制約：title_id に対して、programs テーブルの title_idカラムから設定
 
-
-### genre
-| カラム名| データ型| NULL| キー| 初期値| AUTO INCREMENT|
-| ------ |------|----| ----| ----| ----|
-|genre_id| char(8) |NOT |PRIMARY |||
-|genre| varchar(100)|||NULL|
-
-
 ### programs
 | カラム名| データ型| NULL| キー| 初期値| AUTO INCREMENT|
 | ------ |------|----| ----| ----| ----|
-|title_id|char(8) |NOT|PRIMARY |||
-|title|varchar(100)|||NULL|
-|genre_id|char(8)|||NULL|
+|title_id|char(8) |NOT|PRIMARY | | |
+|title|varchar(100)| | |NULL|
+|genre_id|char(8)| | |NULL|
 
 ※外部キー制約：genre_id に対して、genre テーブルの genre_idカラムから設定
 
@@ -39,12 +37,12 @@ https://github.com/APPRENTICE-jp/apprentice/blob/4th/quest/technologies/database
 ### tv_schedule
 | カラム名| データ型| NULL| キー| 初期値| AUTO INCREMENT|
 | ------ |------|----| ----| ----| ----|
-|start_time| datetime |||NULL||
-|end_time|datetime|||NULL|
-|ch| int |||NULL||
-|episode_id|int|||NULL||
-|viewer| int |||NULL||
-|id|int |NOT |PRIMARY ||YES|
+|start_time| datetime | | |NULL| |
+|end_time|datetime| | |NULL|
+|ch| int | | |NULL| |
+|episode_id|int| | |NULL| |
+|viewer| int | | |NULL| |
+|id|int |NOT |PRIMARY | |YES|
 
 ※外部キー制約：episode_id に対して、episodes テーブルの episode_idカラムから設定
 

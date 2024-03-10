@@ -1,57 +1,55 @@
- @startuml test
- hide circle
- skinparam linetype ortho
+' 表記ルール
+' 頭には主キーを記載し -- で区切る
+' <<FK>> 外部キー
+' <<u>> ユニークキー
+' カラム名 : 型 : 説明 を書く
+' 複合ユニークなど特別な記載は -- で更に区切って記述
+' * 表示修飾子は必須属性を表します。 空白を1文字後ろに入れることで、強調{**}と解釈されることを防ぐと良いでしょう:
+hide empty members
 
- entity tv_schedule {
-     * <<PK>> id
-     --
-     * <<FK>> episode_id
-    '  * viewer
-     * start_time
-     * end_time
-     * id
- }
-'  entity tv_schedule {
-'      * <<PK>> id
-'      --
-'      * <<FK>> episode_id
-'      * viewer
-'      * start_time
-'      * end_time
-'      * id
-'  }
+@startuml internet_tv
+hide circle
+skinparam linetype ortho
 
- entity channels {
-     * <<PK>> channel_id
-     --
-     * channel_name
- }
+entity program_slots {
+    channel_name
+    start_time
+    end_time
+    --
+    <<FK>> title_name
+    <<FK>> season_num
+    <<FK>> episode_num
+}
 
- entity episodes {
-    ' * 表示修飾子は必須属性を表します。 空白を1文字後ろに入れることで、強調{**}と解釈されることを防ぐと良いでしょう:
-     * <<PK>> episode_id
-     --
-     * <<FK>> title_id
-     * season_no
-     * episode_no
-     * episode_name
-     * episode_details
-     * video_duration
-     * viewer
-     * viewer
-     --
-     unique : [title_id]
- }
+entity programs {
+    title_name
+    season_num
+    --
+    <<FK>> genre_id
+    detail
+    --
+    unique [genre_id]
+}
 
- entity programs {
-     * <<PK>> title_id
-     --
-     * <<FK>>genre_id
-     * title
- }
+entity genre {
+    genre_id
+    genre_name
+}
 
+entity episodes {
+    <<FK>> title_name
+    <<FK>> season_num
+    episode_num
+    --
+    episode_name
+    episode_details
+    released_ad
+    video_duration
+    viewer
+    --
+}
 
- episodes ||--o{ genre
- genre ||..o{ programs
- episodes ||--o{ programs
- @enduml
+program_slots }|--|| programs
+genre }|--|| programs
+episodes ||--|| program_slots
+@endumls
